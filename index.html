@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin: 20px 10px 10px;
+        }
+
+        img {
+            box-shadow: 10px 10px 10px;
+        }
+        @media only screen and (max-width:320px) {
+            #slider{
+                width: 300px;
+                height: 250px;
+            }
+            
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <img width="550px" height="300px" id="slider" src="./img/1.jpg" onclick="handler(event)"
+            onmouseover="onenter()" onmouseleave="onmouseaway()">
+
+        <p >
+            The HyperText Markup Language or HTML is the standard markup language for documents designed 
+            to be displayed in
+            a web browser. It can be assisted by technologies such as Cascading Style Sheets (CSS)
+             and scripting languages such as JavaScript.
+
+            Web browsers receive HTML documents from a web server or from local storage and render the documents into
+            multimedia web pages. HTML describes the structure of a web page semantically and originally included cues
+            for the appearance of the document.
+
+        </p>
+    </center>
+
+    <script>
+
+        function handler(event) {
+
+            // console.log(event);
+            // console.log("offsetX: ", event.offsetX);
+            // console.log("clientWidth: ", event.target.clientWidth);
+
+            let clickX = event.offsetX;
+            let imageCurrentRenderWidth = event.target.clientWidth;
+            let clickXPercentage = Math.floor((clickX * 100) / imageCurrentRenderWidth);
+
+            console.log("clickXPercentage: ", clickXPercentage, "%");
+
+            let images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
+
+            let currentImageUrl = document.querySelector("#slider").src;
+            currentImageUrl = currentImageUrl.split("/img/")[1];
+
+            if (clickXPercentage > 25) {
+
+                let nextImageIndex = (images.indexOf(currentImageUrl) + 1);
+                console.log(currentImageUrl);
+                console.log(nextImageIndex);
+
+                if (nextImageIndex > images.length - 1) {
+                    nextImageIndex = 0;
+                }
+                document.querySelector("#slider").src = `./img/${images[nextImageIndex]}`
+
+            } else {
+
+                let nextImageIndex = (images.indexOf(currentImageUrl) - 1);
+                console.log(currentImageUrl);
+                console.log(nextImageIndex);
+
+                if (nextImageIndex < 0) {
+                    nextImageIndex = images.length - 1;
+                }
+                document.querySelector("#slider").src = `./img/${images[nextImageIndex]}`
+            }
+        }
+
+        let isMouseOnImage = false;
+
+        setInterval(() => {
+
+            if (!isMouseOnImage) {
+
+                let images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
+                let currentImageUrl = document.querySelector("#slider").src;
+                currentImageUrl = currentImageUrl.split("/img/")[1];
+
+                let nextImageIndex = (images.indexOf(currentImageUrl) + 1);
+                console.log(currentImageUrl);
+                console.log(nextImageIndex);
+
+                if (nextImageIndex > images.length - 1) {
+                    nextImageIndex = 0;
+                }
+                document.querySelector("#slider").src = `./img/${images[nextImageIndex]}`
+            }
+        }, 4000);
+
+        function onenter() {
+            console.log("onmouseover");
+            isMouseOnImage = true;
+        }
+        function onmouseaway() {
+            console.log("onmouseaway");
+            isMouseOnImage = false;
+        }
+    </script>
+
+    <!-- Haroon code -->
+
+    <!-- <div id="main">
+    <h3 id="imageName">Image</h3>
+</div>
+        <img src="image.jpg" alt="" id="change" onclick="imageChange(event)" > -->
+    <!-- <script>
+        let changeImage = document.getElementById("change");
+let imageName = document.getElementById("imageName");
+//    changeImage.addEventListener('click',imageChange);
+let num = 3;
+let num1 = 0;
+function imageChange(event) {
+  
+  if (num1 == 3) {
+    num1 = 0;
+  }
+  if (100 >= event.offsetX) {
+      if (num <= 0) {
+          num = 3;
+        }
+        changeImage.src = `image${num}.jpg`;
+        imageName.innerText = `Image  ${num}`;
+        num--;
+  } else {
+    num1++;
+    changeImage.src = `image${num1}.jpg`;
+    imageName.innerText = `Image  ${num1}`;
+  }
+}
+    </script> -->
+
+    
+</body>
+
+</html>
